@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskOps Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blur"></div>
+    <div class="dashboard-container">
+        <header>
+            <h1>TaskOps <span class="accent">Dashboard</span></h1>
+            <p id="interpretation">Loading insights...</p>
+        </header>
+
+        <section class="controls">
+            <div class="add-task-form">
+                <input type="text" id="taskTitle" placeholder="New Task Title" />
+                <select id="taskDue">
+                    <option value="today">Today</option>
+                    <option value="tomorrow">Tomorrow</option>
+                    <option value="this-week">This Week</option>
+                </select>
+                <select id="taskWeight">
+                    <option value="1">Weight: 1</option>
+                    <option value="2">Weight: 2</option>
+                    <option value="3">Weight: 3</option>
+                </select>
+                <button onclick="addTask()">Add Task</button>
+            </div>
+            <button class="auto-btn" onclick="runAuto50()">⚡ Auto 50%</button>
+        </section>
+
+        <div class="main-content">
+            <section class="task-list-section">
+                <h2>Your Tasks</h2>
+                <div id="taskList" class="task-list">
+                    <!-- Tasks injected here -->
+                </div>
+            </section>
+
+            <section class="charts-section">
+                <div class="card pie-card">
+                    <h3>Weight Distribution</h3>
+                    <div class="pie-chart-container">
+                        <svg viewBox="0 0 32 32" class="pie-chart">
+                            <!-- Pie slices injected via JS -->
+                            <circle r="16" cx="16" cy="16" style="fill: #333; opacity: 0.2;"></circle>
+                        </svg>
+                        <div class="pie-legend">
+                            <span class="legend-item"><span class="dot done"></span> Done</span>
+                            <span class="legend-item"><span class="dot remaining"></span> Todo</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card progress-card">
+                    <h3>Overall Progress</h3>
+                    <div class="progress-bar-bg">
+                        <div id="progressBar" class="progress-bar-fill" style="width: 0%;"></div>
+                    </div>
+                    <h1 id="progressPercentage">0%</h1>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -112,12 +112,35 @@ class TaskHandler(http.server.SimpleHTTPRequestHandler):
             tasks.append(new_t)
             save_tasks(tasks)
             
+
         elif self.path == '/api/complete':
             # { id }
             t_id = int(req_json.get('id', -1))
             for t in tasks:
                 if t.get('id') == t_id:
                     t['completed'] = not t['completed']
+                    break
+            save_tasks(tasks)
+
+        elif self.path == '/api/delete':
+            # { id }
+            t_id = int(req_json.get('id', -1))
+            tasks = [t for t in tasks if t.get('id') != t_id]
+            save_tasks(tasks)
+
+        elif self.path == '/api/edit':
+            # { id, title, due_date, weight }
+            t_id = int(req_json.get('id', -1))
+            for t in tasks:
+                if t.get('id') == t_id:
+                    t['title'] = req_json.get('title', t['title'])
+                    
+                    due = req_json.get('due_date', t['due_date'])
+                    if due == 'today': due = str(TODAY)
+                    elif due == 'tomorrow': due = str(TODAY + datetime.timedelta(days=1))
+                    t['due_date'] = due
+                    
+                    t['weight'] = int(req_json.get('weight', t['weight']))
                     break
             save_tasks(tasks)
             
